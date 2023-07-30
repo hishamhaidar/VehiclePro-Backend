@@ -1,7 +1,7 @@
 package com.hhaidar.VehicleProBackend.service;
 
 
-import com.hhaidar.VehicleProBackend.dto.AuthRequest;
+import com.hhaidar.VehicleProBackend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.Base64;
 import java.security.Key;
 import java.util.Date;
-import java.util.Map;
 import java.util.function.Function;
 
 @Service
 public class JWTService {
     private final String SECRET_KEY ="E398B4678EDCCB22DD79221AC4423";
-    public String generateToken( AuthRequest authRequest){
+    public String generateToken(User user){
 
        return Jwts.builder()
-                .setSubject(authRequest.getEmail())
+                .setSubject(user.getUserEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*60*48))
                 .signWith(getSiningKey(), SignatureAlgorithm.HS256)
