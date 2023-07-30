@@ -27,8 +27,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                     auth ->
                     {
-                        auth.antMatchers("/user/**").permitAll();
-                        auth.anyRequest().authenticated();
+                        auth.antMatchers("/user/**","/h").permitAll().anyRequest().authenticated();
                     }
 
             )
@@ -36,11 +35,8 @@ public class SecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-            .formLogin(Customizer.withDefaults());
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-
-    ;
     return http.build();
 }
 
