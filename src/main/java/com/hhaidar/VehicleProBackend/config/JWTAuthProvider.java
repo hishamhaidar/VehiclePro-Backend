@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 public class JWTAuthProvider {
-    private final UserServices userServices;
     private final UserRepo userRepo;
     @Bean
     public UserDetailsService userDetailsService() throws UsernameNotFoundException{

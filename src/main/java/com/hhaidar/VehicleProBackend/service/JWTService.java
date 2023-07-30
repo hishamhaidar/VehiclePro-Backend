@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 @Service
 public class JWTService {
-    private final String SECRET_KEY ="E398B4678EDCCB22DD79221AC4423";
+    private final String SECRET_KEY ="7a4a63e490bc5e65da4eef781c880e4019776cf75897e159e5096b9b37f4fc21";
     public String generateToken(User user){
 
        return Jwts.builder()

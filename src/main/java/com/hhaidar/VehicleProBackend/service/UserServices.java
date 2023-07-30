@@ -20,16 +20,12 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServices implements UserDetailsService {
+public class UserServices  {
 
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final AuthenticationManager authenticationManager;
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepo.findUserByUserEmail(email).orElseThrow(()->new UsernameNotFoundException("User with emai: "+email+" not found"));
-    }
 
 
     public AuthenticationResponse registerUser(RegistrationRequest registrationRequest) throws UserExists {
