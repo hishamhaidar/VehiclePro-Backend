@@ -17,13 +17,9 @@ import java.util.Collections;
 @Table(name = "user_details")
 public class User implements UserDetails {
     @Id
-    @SequenceGenerator(name = "user_id_gen",
-            sequenceName = "user_id_gen",
-            allocationSize = 1)
-    @GeneratedValue(strategy =GenerationType.SEQUENCE
-            ,generator = "user_id_gen")
+    @GeneratedValue
+    @Column(name = "user_id")
     private Integer userID;
-
     @Column(name = "username")
     private String username;
     @Column(name = "email")
