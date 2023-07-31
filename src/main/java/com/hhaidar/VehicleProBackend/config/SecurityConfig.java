@@ -27,7 +27,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(
                     auth ->
                     {
-                        auth.antMatchers("/user/**","/h").permitAll().anyRequest().authenticated();
+                        auth.antMatchers("/user/register","/user/authenticate").permitAll().anyRequest().authenticated();
                     }
 
             )

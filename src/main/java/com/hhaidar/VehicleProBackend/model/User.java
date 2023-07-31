@@ -59,6 +59,14 @@ public class User implements UserDetails {
         this.role = Role.NEW_USER;
 
     }
+    public User(Integer id,String username, String userEmail, String userPassword,Role userRole) {
+        this.userID=id;
+        this.username = username;
+        this.userEmail = userEmail;
+        this.userPassword = userPassword;
+        this.role = userRole;
+
+    }
 
     @Override
     public boolean isAccountNonLocked() {

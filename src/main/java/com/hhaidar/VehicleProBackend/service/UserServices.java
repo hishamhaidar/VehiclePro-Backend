@@ -3,6 +3,7 @@ package com.hhaidar.VehicleProBackend.service;
 import com.hhaidar.VehicleProBackend.dto.AuthRequest;
 import com.hhaidar.VehicleProBackend.dto.AuthenticationResponse;
 import com.hhaidar.VehicleProBackend.dto.RegistrationRequest;
+import com.hhaidar.VehicleProBackend.dto.UserDataModificationRequest;
 import com.hhaidar.VehicleProBackend.exceptions.UserExists;
 import com.hhaidar.VehicleProBackend.model.User;
 import com.hhaidar.VehicleProBackend.repository.UserRepo;
@@ -53,6 +54,15 @@ public class UserServices  {
                 .build();
     }
 
+    public String updateUser(Integer id,UserDataModificationRequest request){
+        Optional<User> curr_user = userRepo.findById(id);
+        if (curr_user==null ) {
+            throw new UsernameNotFoundException("User does not exist");
+        }
+        User user = new User(id,request.getUsername(),request.getEmail(),request.getPassword(),request.getRole());
+        userRepo.save(user);
+        return user.toString()+" was saved";
+    }
 
 
 }
