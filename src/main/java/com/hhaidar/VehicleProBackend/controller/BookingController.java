@@ -1,9 +1,11 @@
 package com.hhaidar.VehicleProBackend.controller;
 
+import com.hhaidar.VehicleProBackend.dto.BookingRequest;
 import com.hhaidar.VehicleProBackend.model.Booking;
 import com.hhaidar.VehicleProBackend.service.BookingServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,15 +17,16 @@ public class BookingController {
     private final BookingServices bookingServices;
 
     @PostMapping("/book/{slotID}")
-    public ResponseEntity<String> createBooking(@PathVariable Integer slotID){
-        return bookingServices.createBooking(slotID);
+    public ResponseEntity<String> createBooking(@PathVariable Integer slotID, @RequestBody BookingRequest bookingRequest){
+        return bookingServices.createBooking(slotID,bookingRequest);
     }
-
+    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
     @PutMapping("/confirm/{bookingID}")
     public ResponseEntity<String> confirmBooking(@PathVariable Integer bookingID)
     {
         return bookingServices.confirmBooking(bookingID);
     }
+    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
     @PutMapping("/deny/{bookingID}")
     public ResponseEntity<String> denyBooking(@PathVariable Integer bookingID)
     {

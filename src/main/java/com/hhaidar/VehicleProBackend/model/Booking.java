@@ -13,12 +13,15 @@ public class Booking {
     @GeneratedValue
     private Integer bookingID;
     private Integer slotID;
-
+    private String clientFullName;
+    private String clientEmail;
     @Enumerated(EnumType.STRING)
     private Status bookingStatus;
 
-    public Booking(Integer slotID){
-        this.slotID=slotID;
-        this.bookingStatus= Status.PENDING;
+    public Booking(Integer slotID, String clientFullName, String clientEmail) {
+        this.slotID = slotID;
+        this.clientFullName = clientFullName;
+        this.clientEmail = clientEmail;
+        this.bookingStatus=Status.PENDING;
     }
 }
