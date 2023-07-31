@@ -56,7 +56,7 @@ public class UserServices  {
 
     public String updateUser(Integer id,UserDataModificationRequest request){
         Optional<User> curr_user = userRepo.findById(id);
-        if (curr_user==null ) {
+        if (!curr_user.isPresent() ) {
             throw new UsernameNotFoundException("User does not exist");
         }
         User user = new User(id,request.getUsername(),request.getEmail(),request.getPassword(),request.getRole());
