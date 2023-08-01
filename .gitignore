@@ -33,3 +33,9 @@ out/
 /nbdist/
 /.nb-gradle/
 
+
+#sensitive daTA
+src/main/resources/application.properties
+
+
+
