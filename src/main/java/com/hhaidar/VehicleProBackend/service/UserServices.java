@@ -59,7 +59,7 @@ public class UserServices  {
         if (!curr_user.isPresent() ) {
             throw new UsernameNotFoundException("User does not exist");
         }
-        User user = new User(id,request.getUsername(),request.getEmail(),request.getPassword(),request.getRole());
+        User user = new User(id,request.getUsername(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getRole());
         userRepo.save(user);
         return user.toString()+" was saved";
     }
