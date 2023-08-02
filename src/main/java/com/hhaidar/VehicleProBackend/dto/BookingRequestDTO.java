@@ -6,7 +6,7 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
-public class BookingRequest {
+public class BookingRequestDTO {
     private final String clientName;
     private final String clientEmail;
 }

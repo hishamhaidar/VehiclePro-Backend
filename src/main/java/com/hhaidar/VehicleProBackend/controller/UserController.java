@@ -1,9 +1,9 @@
 package com.hhaidar.VehicleProBackend.controller;
 
-import com.hhaidar.VehicleProBackend.dto.AuthRequest;
-import com.hhaidar.VehicleProBackend.dto.AuthenticationResponse;
-import com.hhaidar.VehicleProBackend.dto.RegistrationRequest;
-import com.hhaidar.VehicleProBackend.dto.UserDataModificationRequest;
+import com.hhaidar.VehicleProBackend.dto.AuthRequestDTO;
+import com.hhaidar.VehicleProBackend.dto.AuthenticationResponseDTO;
+import com.hhaidar.VehicleProBackend.dto.RegistrationRequestDTO;
+import com.hhaidar.VehicleProBackend.dto.UserDataModificationRequestDTO;
 import com.hhaidar.VehicleProBackend.exceptions.UserExists;
 import com.hhaidar.VehicleProBackend.service.UserServices;
 import lombok.RequiredArgsConstructor;
@@ -21,22 +21,22 @@ public class UserController {
     private  Logger log ;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> registerUser(
-            @RequestBody RegistrationRequest registrationRequest) throws UserExists {
-        return ResponseEntity.ok(userServices.registerUser(registrationRequest));
+    public ResponseEntity<AuthenticationResponseDTO> registerUser(
+            @RequestBody RegistrationRequestDTO registrationRequestDTO) throws UserExists {
+        return ResponseEntity.ok(userServices.registerUser(registrationRequestDTO));
 
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticateUser(
-            @RequestBody AuthRequest authRequestt) {
+    public ResponseEntity<AuthenticationResponseDTO> authenticateUser(
+            @RequestBody AuthRequestDTO authRequestt) {
         return ResponseEntity.ok(userServices.authenticateUser(authRequestt));
 
 
     }
     @PreAuthorize("hasRole(GARAGE_OWNER)")
     @PutMapping("/role/{id}")
-    public ResponseEntity<String> assignRole(@PathVariable Integer id , @RequestBody UserDataModificationRequest req){
+    public ResponseEntity<String> assignRole(@PathVariable Integer id , @RequestBody UserDataModificationRequestDTO req){
         return ResponseEntity.ok(userServices.updateUser(id,req));
     }
 }

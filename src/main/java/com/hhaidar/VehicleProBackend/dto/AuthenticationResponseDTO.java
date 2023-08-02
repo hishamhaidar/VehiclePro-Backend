@@ -6,6 +6,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthenticationResponseDTO {
     private String jwtToken;
 }

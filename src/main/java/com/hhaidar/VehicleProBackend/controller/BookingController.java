@@ -1,6 +1,6 @@
 package com.hhaidar.VehicleProBackend.controller;
 
-import com.hhaidar.VehicleProBackend.dto.BookingRequest;
+import com.hhaidar.VehicleProBackend.dto.BookingRequestDTO;
 import com.hhaidar.VehicleProBackend.model.Booking;
 import com.hhaidar.VehicleProBackend.service.BookingServices;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +17,8 @@ public class BookingController {
     private final BookingServices bookingServices;
 
     @PostMapping("/book/{slotID}")
-    public ResponseEntity<String> createBooking(@PathVariable Integer slotID, @RequestBody BookingRequest bookingRequest){
-        return bookingServices.createBooking(slotID,bookingRequest);
+    public ResponseEntity<String> createBooking(@PathVariable Integer slotID, @RequestBody BookingRequestDTO bookingRequestDTO){
+        return bookingServices.createBooking(slotID, bookingRequestDTO);
     }
     @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
     @PutMapping("/confirm/{bookingID}")

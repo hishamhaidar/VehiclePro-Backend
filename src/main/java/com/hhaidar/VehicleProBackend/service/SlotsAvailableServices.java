@@ -1,6 +1,6 @@
 package com.hhaidar.VehicleProBackend.service;
 
-import com.hhaidar.VehicleProBackend.dto.ServiceSlotRequest;
+import com.hhaidar.VehicleProBackend.dto.ServiceSlotRequestDTO;
 import com.hhaidar.VehicleProBackend.model.ServiceSlots;
 import com.hhaidar.VehicleProBackend.model.User;
 import com.hhaidar.VehicleProBackend.repository.ServicesSlotsrepo;
@@ -22,7 +22,7 @@ public class SlotsAvailableServices {
     private final ServicesSlotsrepo slotsrepo;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a");
 
-    public ResponseEntity<String> createSlot(Integer userID, ServiceSlotRequest slotRequest) {
+    public ResponseEntity<String> createSlot(Integer userID, ServiceSlotRequestDTO slotRequest) {
         Optional<User> slotCreator = userRepo.findById(userID);
         if (!slotCreator.isPresent())
             return ResponseEntity.badRequest().body("User of id: "+userID+" Does not exist");
@@ -42,7 +42,7 @@ public class SlotsAvailableServices {
         }
     }
 
-    public ResponseEntity<String> editSlot(Integer userID,Integer slotID, ServiceSlotRequest slotRequest) {
+    public ResponseEntity<String> editSlot(Integer userID,Integer slotID, ServiceSlotRequestDTO slotRequest) {
         Optional<ServiceSlots> currSlot = slotsrepo.findById(slotID);
         Optional<User> modifierUser = userRepo.findById(userID);
         if (!currSlot.isPresent())

@@ -1,6 +1,6 @@
 package com.hhaidar.VehicleProBackend.service;
 
-import com.hhaidar.VehicleProBackend.dto.BookingRequest;
+import com.hhaidar.VehicleProBackend.dto.BookingRequestDTO;
 import com.hhaidar.VehicleProBackend.model.Booking;
 import com.hhaidar.VehicleProBackend.model.ServiceSlots;
 import com.hhaidar.VehicleProBackend.model.Status;
@@ -22,19 +22,19 @@ public class BookingServices {
     private final ServicesSlotsrepo slotsrepo;
     private final JavaMailSender javaMailSender;
 
-    public ResponseEntity<String> createBooking(Integer slotID, BookingRequest bookingRequest) {
+    public ResponseEntity<String> createBooking(Integer slotID, BookingRequestDTO bookingRequestDTO) {
         Optional<ServiceSlots> tempSlot = slotsrepo.findById(slotID);
         if (!tempSlot.isPresent()) {
             return ResponseEntity.badRequest().body("Requested slot does not exist");
         }
-        Optional<Booking> existingBookCheck = bookingRepo.findBySlotIDAndClientEmail(slotID,bookingRequest.getClientEmail());
+        Optional<Booking> existingBookCheck = bookingRepo.findBySlotIDAndClientEmail(slotID, bookingRequestDTO.getClientEmail());
         if(existingBookCheck.isPresent()) {
             return ResponseEntity.badRequest().body("You already applied for this slot id.please wait for mail");
         }
         ServiceSlots requiredSlot = tempSlot.get();
         if (requiredSlot.getCurrCapacity() <= 0)
             return ResponseEntity.badRequest().body("Sorry the slot is full,please wait or try different slot");
-        bookingRepo.save(new Booking(slotID, bookingRequest.getClientName(), bookingRequest.getClientEmail()));
+        bookingRepo.save(new Booking(slotID, bookingRequestDTO.getClientName(), bookingRequestDTO.getClientEmail()));
         return ResponseEntity.ok("Your booking is pending now,we will send you an update soon!");
 
     }

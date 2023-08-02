@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class ServiceSlotRequest {
+public class ServiceSlotRequestDTO {
     String startTime;
     String endTime;
     Integer maxCapacity;

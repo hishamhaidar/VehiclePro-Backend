@@ -10,7 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class UserDataModificationRequest {
+public class UserDataModificationRequestDTO {
     private final String username;
     private final String email;
     private final String password;
