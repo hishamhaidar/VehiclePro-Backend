@@ -21,13 +21,13 @@ public class BookingController {
     public ResponseEntity<String> createBooking(@PathVariable Integer slotID, @RequestBody BookingRequestDTO bookingRequestDTO){
         return bookingServices.createBooking(slotID, bookingRequestDTO);
     }
-    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
+
     @PutMapping("/confirm/{bookingID}")
     public ResponseEntity<String> confirmBooking(@PathVariable Integer bookingID)
     {
         return bookingServices.confirmBooking(bookingID);
     }
-    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
+
     @PutMapping("/deny/{bookingID}")
     public ResponseEntity<String> denyBooking(@PathVariable Integer bookingID)
     {

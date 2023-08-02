@@ -16,18 +16,18 @@ import java.util.ArrayList;
 @RequestMapping("/slots")
 public class ServiceSlotsController {
     private final SlotsAvailableServices slotsServices;
-    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
+
     @PostMapping("/create/{userID}")
     public ResponseEntity<String> createSlot(@PathVariable Integer userID, @RequestBody ServiceSlotRequestDTO slotRequest){
         return slotsServices.createSlot(userID,slotRequest);
     }
-    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
+
     @PutMapping("/edit/{userID}/{slotID}")
     public ResponseEntity<String> editSlot(@PathVariable Integer userID,@PathVariable Integer slotID, @RequestBody ServiceSlotRequestDTO slotRequest){
         return slotsServices.editSlot(userID,slotID,slotRequest);
     }
 
-    @PreAuthorize("hasAnyRole(SERVICE_MANAGER,GARAGE_OWNER)")
+
     @DeleteMapping("/delete/{slotID}")
     public  ResponseEntity<String> deleteSlot(@PathVariable Integer slotID){
         return slotsServices.deleteSlot(slotID);

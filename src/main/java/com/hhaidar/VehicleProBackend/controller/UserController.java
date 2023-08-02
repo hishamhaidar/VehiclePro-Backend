@@ -33,7 +33,6 @@ public class UserController {
 
 
     }
-    @PreAuthorize("hasRole(GARAGE_OWNER)")
     @PutMapping("/role/{id}")
     public ResponseEntity<String> assignRole(@PathVariable Integer id , @RequestBody UserDataModificationRequestDTO req){
         return ResponseEntity.ok(userServices.updateUser(id,req));
