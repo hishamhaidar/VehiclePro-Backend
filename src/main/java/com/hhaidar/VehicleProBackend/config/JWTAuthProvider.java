@@ -1,7 +1,6 @@
 package com.hhaidar.VehicleProBackend.config;
 
 import com.hhaidar.VehicleProBackend.repository.UserRepo;
-import com.hhaidar.VehicleProBackend.service.UserServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,7 @@ public class JWTAuthProvider {
     private final UserRepo userRepo;
     @Bean
     public UserDetailsService userDetailsService() throws UsernameNotFoundException{
-        return email -> userRepo.findUserByUserEmail(email).orElseThrow(()->new UsernameNotFoundException("User doesnt exist"));
+        return email -> userRepo.findUserByUserEmail(email).orElseThrow(()->new UsernameNotFoundException("GarageUser doesnt exist"));
     }
     @Bean
     public AuthenticationProvider authenticationProvider(){

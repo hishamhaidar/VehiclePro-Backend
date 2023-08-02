@@ -2,6 +2,7 @@ package com.hhaidar.VehicleProBackend.controller;
 
 import com.hhaidar.VehicleProBackend.dto.BookingRequestDTO;
 import com.hhaidar.VehicleProBackend.model.Booking;
+import com.hhaidar.VehicleProBackend.impl.BookingServicesImpl;
 import com.hhaidar.VehicleProBackend.service.BookingServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

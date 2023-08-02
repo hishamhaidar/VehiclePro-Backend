@@ -5,7 +5,8 @@ import com.hhaidar.VehicleProBackend.dto.AuthenticationResponseDTO;
 import com.hhaidar.VehicleProBackend.dto.RegistrationRequestDTO;
 import com.hhaidar.VehicleProBackend.dto.UserDataModificationRequestDTO;
 import com.hhaidar.VehicleProBackend.exceptions.UserExists;
-import com.hhaidar.VehicleProBackend.service.UserServices;
+import com.hhaidar.VehicleProBackend.impl.GarageUserServicesImpl;
+import com.hhaidar.VehicleProBackend.service.GarageUserServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,9 +18,7 @@ import java.util.logging.Logger;
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
-    private final UserServices userServices;
-    private  Logger log ;
-
+    private final GarageUserServices userServices;
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDTO> registerUser(
             @RequestBody RegistrationRequestDTO registrationRequestDTO) throws UserExists {

@@ -15,7 +15,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Table(name = "user_details")
-public class User implements UserDetails {
+public class GarageUser implements UserDetails {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
@@ -52,14 +52,14 @@ public class User implements UserDetails {
         return true;
     }
 
-    public User(String username, String userEmail, String userPassword) {
+    public GarageUser(String username, String userEmail, String userPassword) {
         this.username = username;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
         this.role = Role.NEW_USER;
 
     }
-    public User(Integer id,String username, String userEmail, String userPassword,Role userRole) {
+    public GarageUser(Integer id, String username, String userEmail, String userPassword, Role userRole) {
         this.userID=id;
         this.username = username;
         this.userEmail = userEmail;

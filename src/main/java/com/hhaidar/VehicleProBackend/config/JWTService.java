@@ -1,7 +1,7 @@
-package com.hhaidar.VehicleProBackend.service;
+package com.hhaidar.VehicleProBackend.config;
 
 
-import com.hhaidar.VehicleProBackend.model.User;
+import com.hhaidar.VehicleProBackend.model.GarageUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,10 +17,10 @@ import java.util.function.Function;
 @Service
 public class JWTService {
     private final String SECRET_KEY ="7a4a63e490bc5e65da4eef781c880e4019776cf75897e159e5096b9b37f4fc21";
-    public String generateToken(User user){
+    public String generateToken(GarageUser garageUser){
 
        return Jwts.builder()
-                .setSubject(user.getUserEmail())
+                .setSubject(garageUser.getUserEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*60*48))
                 .signWith(getSiningKey(), SignatureAlgorithm.HS256)

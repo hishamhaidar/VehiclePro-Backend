@@ -2,6 +2,7 @@ package com.hhaidar.VehicleProBackend.controller;
 
 import com.hhaidar.VehicleProBackend.dto.ServiceSlotRequestDTO;
 import com.hhaidar.VehicleProBackend.model.ServiceSlots;
+import com.hhaidar.VehicleProBackend.impl.SlotsAvailableServicesImpl;
 import com.hhaidar.VehicleProBackend.service.SlotsAvailableServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
