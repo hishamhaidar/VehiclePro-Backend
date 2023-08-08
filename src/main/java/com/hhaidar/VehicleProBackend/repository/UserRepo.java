@@ -14,4 +14,5 @@ public interface UserRepo extends JpaRepository<GarageUser,Integer> {
     Optional<GarageUser> findUserByUserEmail(String userEmail);
 
 
+    Optional<GarageUser> findUserByUsername(String username);
 }

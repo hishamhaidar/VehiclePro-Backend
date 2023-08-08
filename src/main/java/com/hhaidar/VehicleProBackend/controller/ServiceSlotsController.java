@@ -14,6 +14,7 @@ import java.util.ArrayList;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/slots")
+@CrossOrigin("http://localhost:3000")
 public class ServiceSlotsController {
     private final SlotsAvailableServices slotsServices;
 

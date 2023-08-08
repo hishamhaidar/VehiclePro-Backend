@@ -11,6 +11,7 @@ import com.hhaidar.VehicleProBackend.repository.UserRepo;
 import com.hhaidar.VehicleProBackend.service.GarageUserServices;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,19 +30,21 @@ public class GarageUserServicesImpl implements GarageUserServices {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthenticationResponseDTO registerUser(RegistrationRequestDTO registrationRequestDTO) throws UserExists {
-        boolean exists = userRepo.findUserByUserEmail(registrationRequestDTO.getEmail()).isPresent();
-        if (exists){
-            throw new UserExists("username is already taken,please provide new one");
+    public ResponseEntity<String> registerUser(RegistrationRequestDTO registrationRequestDTO) throws UserExists {
+        boolean mailExists = userRepo.findUserByUserEmail(registrationRequestDTO.getEmail()).isPresent();
+        if (mailExists){
+            return ResponseEntity.badRequest().body("Email already taken");
+        }
+         boolean usernameExists = userRepo.findUserByUsername(registrationRequestDTO.getUsername()).isPresent();
+        if (usernameExists){
+            return ResponseEntity.badRequest().body("Username already taken");
         }
         GarageUser garageUser = new GarageUser(registrationRequestDTO.getUsername(),
                 registrationRequestDTO.getEmail()
                 , passwordEncoder.encode(registrationRequestDTO.getPassword()));
         userRepo.save(garageUser);
-        String jwtToken = jwtService.generateToken(garageUser);
-        return AuthenticationResponseDTO.builder()
-                .jwtToken(jwtToken)
-                .build();
+
+        return ResponseEntity.ok("User Registered succesfully");
 
 
     }

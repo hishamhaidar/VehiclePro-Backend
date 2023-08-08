@@ -17,12 +17,13 @@ import java.util.logging.Logger;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin("http://localhost:3000")
 public class UserController {
     private final GarageUserServices userServices;
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponseDTO> registerUser(
+    public ResponseEntity<String> registerUser(
             @RequestBody RegistrationRequestDTO registrationRequestDTO) throws UserExists {
-        return ResponseEntity.ok(userServices.registerUser(registrationRequestDTO));
+        return userServices.registerUser(registrationRequestDTO);
 
     }
 

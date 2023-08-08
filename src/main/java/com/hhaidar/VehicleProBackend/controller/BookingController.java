@@ -21,7 +21,11 @@ public class BookingController {
     public ResponseEntity<String> createBooking(@PathVariable Integer slotID, @RequestBody BookingRequestDTO bookingRequestDTO){
         return bookingServices.createBooking(slotID, bookingRequestDTO);
     }
-
+    @CrossOrigin(
+            origins = "http://localhost:3000",
+            allowedHeaders = {"Authorization", "Content-Type"},
+            allowCredentials = "true"
+    )
     @PutMapping("/confirm/{bookingID}")
     public ResponseEntity<String> confirmBooking(@PathVariable Integer bookingID)
     {
