@@ -2,10 +2,12 @@ package com.hhaidar.VehicleProBackend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AuthRequestDTO {
-    private final String email;
-    private final String password;
+    private  String email;
+    private  String password;
 }

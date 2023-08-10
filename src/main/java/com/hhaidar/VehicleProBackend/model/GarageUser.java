@@ -44,7 +44,7 @@ public class GarageUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.username;
+        return this.userEmail;
     }
 
     @Override

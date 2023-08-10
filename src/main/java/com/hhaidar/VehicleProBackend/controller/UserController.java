@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:3000")
 public class UserController {
     private final GarageUserServices userServices;
     @PostMapping("/register")

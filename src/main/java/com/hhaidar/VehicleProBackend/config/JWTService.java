@@ -22,7 +22,7 @@ public class JWTService {
        return Jwts.builder()
                 .setSubject(garageUser.getUserEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*48))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60))
                 .signWith(getSiningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
