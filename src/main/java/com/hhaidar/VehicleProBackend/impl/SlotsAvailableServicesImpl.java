@@ -21,7 +21,7 @@ import java.util.Optional;
 public class SlotsAvailableServicesImpl implements SlotsAvailableServices {
     private final UserRepo userRepo;
     private final ServicesSlotsrepo slotsrepo;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @Override
     public ResponseEntity<String> createSlot(Integer userID, ServiceSlotRequestDTO slotRequest) {
         Optional<GarageUser> slotCreator = userRepo.findById(userID);

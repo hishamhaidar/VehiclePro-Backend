@@ -1,10 +1,7 @@
 package com.hhaidar.VehicleProBackend.impl;
 
 import com.hhaidar.VehicleProBackend.config.JWTService;
-import com.hhaidar.VehicleProBackend.dto.AuthRequestDTO;
-import com.hhaidar.VehicleProBackend.dto.AuthenticationResponseDTO;
-import com.hhaidar.VehicleProBackend.dto.RegistrationRequestDTO;
-import com.hhaidar.VehicleProBackend.dto.UserDataModificationRequestDTO;
+import com.hhaidar.VehicleProBackend.dto.*;
 import com.hhaidar.VehicleProBackend.exceptions.UserExists;
 import com.hhaidar.VehicleProBackend.model.GarageUser;
 import com.hhaidar.VehicleProBackend.repository.UserRepo;
@@ -66,6 +63,17 @@ public class GarageUserServicesImpl implements GarageUserServices {
         GarageUser garageUser = new GarageUser(id,request.getUsername(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getRole());
         userRepo.save(garageUser);
         return garageUser.toString()+" was saved";
+    }
+
+    @Override
+    public ResponseEntity<UserInfoResponseDTO> getUserInfo(String userEmail) {
+        Optional<GarageUser> curr_user = userRepo.findUserByUserEmail(userEmail);
+        if (!curr_user.isPresent() ) {
+            return ResponseEntity.badRequest().body(new UserInfoResponseDTO());
+        }
+        GarageUser user= curr_user.get();
+        UserInfoResponseDTO response = new UserInfoResponseDTO(user.getUserID(),user.getRole().name(),user.getUsername());
+        return ResponseEntity.ok(response);
     }
 
 

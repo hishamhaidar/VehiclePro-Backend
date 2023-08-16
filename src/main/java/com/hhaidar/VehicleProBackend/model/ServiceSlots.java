@@ -1,5 +1,6 @@
 package com.hhaidar.VehicleProBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +23,9 @@ public class ServiceSlots {
     private Integer userID;
 
     private String createdBy;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
     private Integer maxCapacity;
     private Integer currCapacity;
