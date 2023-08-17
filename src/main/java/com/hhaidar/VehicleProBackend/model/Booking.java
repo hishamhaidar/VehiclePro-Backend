@@ -17,11 +17,15 @@ public class Booking {
     private String clientEmail;
     @Enumerated(EnumType.STRING)
     private Status bookingStatus;
+    private Integer vehicleID;
+    private String vehicleProblem;
 
-    public Booking(Integer slotID, String clientFullName, String clientEmail) {
+    public Booking(Integer slotID, String clientFullName, String clientEmail,Integer vehicleID,String vehicleProblem) {
         this.slotID = slotID;
         this.clientFullName = clientFullName;
         this.clientEmail = clientEmail;
+        this.vehicleID=vehicleID;
+        this.vehicleProblem=vehicleProblem;
         this.bookingStatus=Status.PENDING;
     }
 }

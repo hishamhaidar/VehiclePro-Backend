@@ -9,6 +9,7 @@ import com.hhaidar.VehicleProBackend.repository.ServicesSlotsrepo;
 import com.hhaidar.VehicleProBackend.service.BookingServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class BookingServicesImpl implements BookingServices {
     private final BookingRepo bookingRepo;
     private final ServicesSlotsrepo slotsrepo;
     private final JavaMailSender javaMailSender;
+    private final KafkaTemplate<String, Booking> kafkaTemplate;
 @Override
     public ResponseEntity<String> createBooking(Integer slotID, BookingRequestDTO bookingRequestDTO) {
         Optional<ServiceSlots> tempSlot = slotsrepo.findById(slotID);
@@ -35,7 +37,9 @@ public class BookingServicesImpl implements BookingServices {
         ServiceSlots requiredSlot = tempSlot.get();
         if (requiredSlot.getCurrCapacity() <= 0)
             return ResponseEntity.badRequest().body("Sorry the slot is full,please wait or try different slot");
-        bookingRepo.save(new Booking(slotID, bookingRequestDTO.getClientName(), bookingRequestDTO.getClientEmail()));
+    Booking newBooking = new Booking(slotID, bookingRequestDTO.getClientName(), bookingRequestDTO.getClientEmail(),bookingRequestDTO.getVehicleID(),bookingRequestDTO.getVehicleProblem());
+    bookingRepo.save(newBooking);
+    kafkaTemplate.send("bookings", newBooking);
         return ResponseEntity.ok("Your booking is pending now,we will send you an update soon!");
 
     }
@@ -53,6 +57,7 @@ public class BookingServicesImpl implements BookingServices {
             slotsrepo.save(slot);
             bookingToConfirm.setBookingStatus(Status.CONFIRMED);
             bookingRepo.save(bookingToConfirm);
+            kafkaTemplate.send("bookings", bookingToConfirm);
             sendConfirmationMail(bookingToConfirm.getClientEmail());
             return ResponseEntity.ok("Booking is confirmed");
         }
@@ -67,6 +72,7 @@ public class BookingServicesImpl implements BookingServices {
         Booking bookingToDeny = tempBooking.get();
         bookingToDeny.setBookingStatus(Status.DENIED);
         bookingRepo.save(bookingToDeny);
+        kafkaTemplate.send("bookings",bookingToDeny);
         ServiceSlots slot = slotsrepo.findById(bookingToDeny.getSlotID()).get();
         int currSlotCapacity = slot.getCurrCapacity();
         currSlotCapacity = (currSlotCapacity >= slot.getMaxCapacity()) ? slot.getMaxCapacity() : currSlotCapacity + 1;

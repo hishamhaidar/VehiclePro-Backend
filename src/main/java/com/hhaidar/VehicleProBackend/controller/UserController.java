@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 @RestController
@@ -37,5 +38,9 @@ public class UserController {
     @GetMapping("/getinfo/{userEmail}")
     public ResponseEntity<UserInfoResponseDTO> getUserInfo(@PathVariable String userEmail){
         return userServices.getUserInfo(userEmail);
+    }
+    @GetMapping("/getall")
+    public ResponseEntity<ArrayList<AllUsersInfoResponseDTO>> getUsers(){
+        return userServices.getUsers();
     }
 }

@@ -67,6 +67,9 @@ public class GarageUser implements UserDetails {
         this.role = userRole;
 
     }
+    public String getRealUserName(){
+        return this.username;
+    }
 
     @Override
     public boolean isAccountNonLocked() {

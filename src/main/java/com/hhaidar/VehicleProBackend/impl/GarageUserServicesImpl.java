@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,7 +63,7 @@ public class GarageUserServicesImpl implements GarageUserServices {
         if (!curr_user.isPresent() ) {
             throw new UsernameNotFoundException("GarageUser does not exist");
         }
-        GarageUser garageUser = new GarageUser(id,request.getUsername(),request.getEmail(),passwordEncoder.encode(request.getPassword()),request.getRole());
+        GarageUser garageUser = new GarageUser(id,request.getUsername(),request.getEmail(),passwordEncoder.encode(curr_user.get().getPassword()),request.getRole());
         userRepo.save(garageUser);
         return garageUser.toString()+" was saved";
     }
@@ -72,8 +75,23 @@ public class GarageUserServicesImpl implements GarageUserServices {
             return ResponseEntity.badRequest().body(new UserInfoResponseDTO());
         }
         GarageUser user= curr_user.get();
-        UserInfoResponseDTO response = new UserInfoResponseDTO(user.getUserID(),user.getRole().name(),user.getUsername());
+        UserInfoResponseDTO response = new UserInfoResponseDTO(user.getUserID(),user.getRole().name(),user.getRealUserName());
         return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public ResponseEntity<ArrayList<AllUsersInfoResponseDTO>> getUsers() {
+        ArrayList<GarageUser> allUsers = (ArrayList<GarageUser>)userRepo.findAll();
+        ArrayList<AllUsersInfoResponseDTO> response = new ArrayList<>();
+    allUsers.forEach(user ->{
+        AllUsersInfoResponseDTO info = AllUsersInfoResponseDTO.builder()
+                .userID(user.getUserID())
+                .email(user.getUserEmail())
+                .username(user.getRealUserName())
+                .role(user.getRole().name()).build();
+        response.add(info);
+    });
+    return ResponseEntity.ok(response);
     }
 
 

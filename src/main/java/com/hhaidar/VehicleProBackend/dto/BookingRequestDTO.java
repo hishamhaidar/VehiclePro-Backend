@@ -6,7 +6,10 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookingRequestDTO {
-    private final String clientName;
-    private final String clientEmail;
+    private  String clientName;
+    private  String clientEmail;
+    private Integer vehicleID;
+    private String vehicleProblem;
 }
