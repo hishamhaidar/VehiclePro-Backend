@@ -28,7 +28,7 @@ public class SecurityConfig {
                         auth ->
                         {
                             auth.antMatchers("/user/register",
-                                            "/user/authenticate","/booking/book/**")
+                                            "/user/authenticate","/booking/book/**","/slots//search/all")
                                     .permitAll()
                                     .antMatchers("/booking/confirm/**",
                                             "/booking/deny/**",
