@@ -6,8 +6,9 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 public class RegistrationRequestDTO {
-    private final String username;
-    private final String email;
-    private final String password;
+    private  String username;
+    private  String email;
+    private  String password;
 }
