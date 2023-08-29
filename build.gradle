@@ -5,10 +5,14 @@ plugins {
 }
 
 group = 'com.hhaidar'
-version = '0.0.1-SNAPSHOT'
+
 
 java {
 	sourceCompatibility = '1.8'
+}
+bootJar {
+	archivesBaseName = 'employees-garage-backend'
+
 }
 
 configurations {
